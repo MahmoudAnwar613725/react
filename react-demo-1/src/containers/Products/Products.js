@@ -10,9 +10,8 @@ const Products = (props) => {
             key={product.id}
 
         />
-    })
-
-    return products
+    });
+    return products;
 
 }
 
