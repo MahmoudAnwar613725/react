@@ -1,8 +1,8 @@
-import {useState} from 'react'; 
+import {useState} from 'react';
 import './App.css';
-import Product from './components/Product/Product';
-import Dashboard from './containers/Dashboard';
-import Products from './containers/Products/Products';
+import Post from './components/Post/Post';
+import Dashboard from './containers/dashboard/Dashboard';
+import Posts from './containers/Posts/Posts';
 
 function App() {
 

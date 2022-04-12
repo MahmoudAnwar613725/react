@@ -1,20 +1,19 @@
-import { useState } from "react";
 
-const NewProduct = (props) => {
+const NewPost = (props) => {
 
 
 
     return (
         <div className="Content">
          
-                <h1>Add a Product</h1>
+                <h1>Add a Post</h1>
 
                 <label>Name</label>
                 <input type="text"
                     label={'name'}
                     name={'name'}
                     onChange={props.onChange}
-                    value={props.name}
+                    value={props.title}
                 />
 
                 <label>Price</label>
@@ -22,13 +21,13 @@ const NewProduct = (props) => {
                     label={'price'}
                     name={'price'}
                     onChange={props.onChange}
-                    value={props.price}
+                    value={props.author}
                 />
 
-                <button onClick={props.addButtonClicked}>Add Product </button>
+                <button onClick={props.addButtonClicked}>Add post </button>
         </div>
     );
 
 }
 
-export default NewProduct;
+export default NewPost;

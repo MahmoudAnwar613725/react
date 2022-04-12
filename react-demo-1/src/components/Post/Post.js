@@ -1,15 +1,15 @@
 
-const Product = (props) => {
+const Post = (props) => {
 
     return (
         <div className="Content">
-            <h1> {props.name}</h1>
+            <h1> {props.title}</h1>
             <div className="Field">
-                {props.price}
+                {props.author}
             </div>
         </div>
     );
 }
 
-export default Product;
+export default Post;
 
