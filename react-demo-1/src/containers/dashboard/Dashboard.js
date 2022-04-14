@@ -55,7 +55,7 @@ export default function Dashboard() {
 
 
     return (<div>
-        <div>
+        <div className="row">
             <Posts posts={postsState}/>
         </div>
 
