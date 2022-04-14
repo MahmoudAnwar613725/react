@@ -8,14 +8,14 @@ const PostDetails = (props) => {
     const [postDetail, setPostDetail] = useState({})
 
     useEffect(() => {
-        axios.get('\'http://localhost:8080/api/posts/' + props.id + '/comments')
+        axios.get('http://localhost:8080/api/posts/' + props.id + '/comments')
             .then(response => {
                 setPostDetail(response.data)
             }).catch(err => console.log(err.message))
     },[props.id]);
 
     const deleteButtonClicked = (id) => {
-      axios.delete('')
+      axios.delete('http://localhost:8080/api/posts/' +id)
           .then(response=>{
               props.changeFetchFlag();
           }).catch(err=> console.log(err.message))
@@ -34,8 +34,8 @@ const PostDetails = (props) => {
                  {postDetail.content}
                  <br />
                  <div style={{ textAlign: "left" }}>
-                     {space} Reviews <br />
-                     {postDetail.comments != null ? postDetail.comments.map(comments => {
+                     {space} Comments <br />
+                     {postDetail.comment != null ? postDetail.comment.map(comments => {
                          return <Comment comment={comments.comment} key={comments.id}/>
                      }) : null}
                  </div>

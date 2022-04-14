@@ -1,18 +1,16 @@
- import './App.css';
- import Dashboard from './containers/dashboard/Dashboard';
+import './App.css';
+import Dashboard from './containers/dashboard/Dashboard';
 
 function App() {
 
 
+    return (
+        <div className="App">
+            <h1> Welcome WAA </h1>
+            <Dashboard/>
 
-
-  return (
-    <div className="App">
-        <h1> Welcome WAA </h1>
-        <Dashboard />
-      
-    </div>
-  );
+        </div>
+    );
 }
 
 export default App;

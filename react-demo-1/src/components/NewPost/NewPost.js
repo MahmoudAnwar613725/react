@@ -8,6 +8,7 @@ const addButtonClick = ()=>{
     const form = newPostForm.current;
     const data = {
         title: form['title'].value,
+        content: form['content'].value,
         author: form['author'].value
     }
 
@@ -24,6 +25,9 @@ const addButtonClick = ()=>{
 
                 <label>Title</label>
                 <input type="text" label={'title'} name={'title'} />
+
+                <label>content</label>
+                <input type="text" label={'content'} name={'content'} />
 
                 <label>Author</label>
                 <input type="text" label={'author'} name={'author'} />

@@ -38,17 +38,17 @@ const Dashboard = () => {
         <div>
 
             <div>
-                <Post
+                <Posts
                     setSelected={setSelected}
                     fetchFlag={fetchFlag}
                 />
             </div>
             <button onClick={reviewColorHandler}>Change color</button>
-            <div>
+            {<div>
                 <PostDetails
                     id={selectedState}
                     changeFetchFlag={changeFetchFlag}/>
-            </div>
+            </div>}
             <div>
                 <NewPost changeFetchFlag={changeFetchFlag}/>
 
