@@ -1,30 +1,36 @@
+import axios from "axios";
+import {useRef} from "react";
 
 const NewPost = (props) => {
 
+const newPostForm = useRef();
+const addButtonClick = ()=>{
+    const form = newPostForm.current;
+    const data = {
+        title: form['title'].value,
+        author: form['author'].value
+    }
 
+    axios.post('http://localhost:8080/api/posts',data)
+        .then(response=>{
+            props.changeFetchFlag();
+        }).catch()
+}
 
     return (
-        <div className="Content">
-         
-                <h1>Add a Post</h1>
+        <div className="NewPost">
+            <form ref={newPostForm}>
+                <h1> Add Post</h1>
 
-                <label>Name</label>
-                <input type="text"
-                    label={'name'}
-                    name={'name'}
-                    onChange={props.onChange}
-                    value={props.title}
-                />
+                <label>Title</label>
+                <input type="text" label={'title'} name={'title'} />
 
-                <label>Price</label>
-                <input type="text"
-                    label={'price'}
-                    name={'price'}
-                    onChange={props.onChange}
-                    value={props.author}
-                />
+                <label>Author</label>
+                <input type="text" label={'author'} name={'author'} />
+            </form>
 
-                <button onClick={props.addButtonClicked}>Add post </button>
+            <button onClick={addButtonClick} > Add Post</button>
+
         </div>
     );
 

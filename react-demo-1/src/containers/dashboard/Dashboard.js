@@ -1,77 +1,63 @@
-import Posts from "../Posts/Posts";
-import {useState} from 'react';
+import React, {useState, useEffect} from "react";
 import NewPost from "../../components/NewPost/NewPost";
-import ChangeTitle from "../../components/changeTitle/ChangeTitle";
-import UpdateTitle from "../../components/changeTitle/updateTitle";
-
-export default function Dashboard() {
-
-    let i = 4;
-    const [postsState, setPostsState] = useState([
-        {id: 1, title: "WAA", author: "Mohyee Eldeen"}, {
-        id: 2,
-        title: "ASD",
-        author: "Payman Salek"
-    },
-        {id: 3, title: "WAP", author: "Bruce Lester"}]);
-
-    const [postState, setPostState] = useState({
-        id: 0, title: "", author: ""
-    })
+import PostDetails from "../../components/PostDetails/PostDetails";
+import Post from "../../components/Post/Post";
+import Posts from "../../containers/Posts/Posts";
+import {ThemeColorContext} from "../../store/ThemeColor";
 
 
-    const [post, setPost] = useState({
-        title: "",
-    });
+const Dashboard = () => {
 
+    const [themeColorState, setThemeColorState] = useState({color: "red"});
+    const [fetchFlag, setFetchflag] = useState(true);
+    const [selectedState, setSelectedState] = useState(0);
 
-    const onChange = (events) => {
-        console.log(events)
-
-        const copy = {...postState};
-        copy[events.target.name] = events.target.value;
-        setPost(copy);
-
+    const changeFetchFlag = () => {
+        setFetchflag(!fetchFlag);
     }
 
-    const addButtonClicked = () => {
-        const copy = {...postState};
-        copy.id = i;
-        i++;
-        const copyPostsState = [...postsState]
-        copyPostsState.push(copy);
-        setPostsState(copyPostsState);
+    const setSelected = (id) => {
+        setSelectedState(id);
     }
 
-
-    const changeTitleButtonClicked = () => {
-        const copy = {...post};
-        const copyPostsState = [...postsState]
-        copyPostsState[0].title =   copy.title ;
-        console.log(copyPostsState[0].title)
-        //   copyPostsState.push(copy);
-        setPostsState(copyPostsState);
+    const reviewColorHandler = () => {
+        if (themeColorState.color === "red") {
+            setThemeColorState({color: "blue"});
+        } else {
+            setThemeColorState({color: "red"});
+        }
     }
 
+    useEffect(() => {
+        return () => {
+            console.log("Something was unmounted");
+        };
+    }, [fetchFlag]);
 
-    return (<div>
-        <div className="row">
-            <Posts posts={postsState}/>
-        </div>
-
-
+    return (
         <div>
-            <UpdateTitle
-                title={post.title}
-                onChange={(event) => {
-                    onChange(event);
-                }}
-                changeButtonClicked={changeTitleButtonClicked}
-            />
-        </div>
 
-        <div>
+            <div>
+                <Post
+                    setSelected={setSelected}
+                    fetchFlag={fetchFlag}
+                />
+            </div>
+            <button onClick={reviewColorHandler}>Change color</button>
+            <div>
+                <PostDetails
+                    id={selectedState}
+                    changeFetchFlag={changeFetchFlag}/>
+            </div>
+            <div>
+                <NewPost changeFetchFlag={changeFetchFlag}/>
+
+            </div>
+
         </div>
-    </div>)
+    );
 
 }
+
+
+export default Dashboard;

@@ -1,3 +1,4 @@
+/*
 import Post from "../../components/Post/Post"
 
 const Posts = (props) => {
@@ -15,4 +16,4 @@ const Posts = (props) => {
 
 }
 
-export default Posts;
+export default Posts;*/
