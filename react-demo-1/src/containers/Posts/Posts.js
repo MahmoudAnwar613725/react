@@ -9,19 +9,11 @@ const Posts = (props) => {
 
     const [posts, setPosts] = useState(
         [
-            { id: 1, title: "iphone 13", author: 1100 },
-            { id: 2, title: "s22", author: 1150 },
-         ]
+            { id: 1, title: "iphone 13",content: "iphone 13", author: 1100 },
+          ]
     )
     const fetchProducts = () => {
-        axios.get('http://localhost:8080/api/posts',{
-            headers: {
-                "x-apikey": "API_KEY",
-            },
-            responseType: "json",
-            mode: 'same-origin',
-
-        })
+        axios.get('http://localhost:8080/api/posts')
             .then(response => {
                 setPosts(response.data);
             })
@@ -39,8 +31,10 @@ const Posts = (props) => {
 
     const postsList = posts.map(product => {
         return <Post
-            name={product.title}
-            price={product.author}
+            title={product.title}
+            author={product.author}
+            post={product}
+            content={product.content}
             id={product.id}
             key={product.id}
             setSelected={() => { props.setSelected(product.id) }}

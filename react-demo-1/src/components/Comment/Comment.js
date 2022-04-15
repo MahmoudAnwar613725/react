@@ -6,7 +6,7 @@ const Comment = (props) => {
     return (
 
         <div style={{color:colorContext.color}} className='Comment'>
-            {props.comment}
+            {props.name}
         </div>
 
     );

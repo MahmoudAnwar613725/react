@@ -3,47 +3,49 @@ import axios from "axios";
 import './PostDetails.css'
 import {Fragment} from "react";
 import Comment from "../Comment/Comment";
-
-const PostDetails = (props) => {
+import Comments from "../../containers/Comments/Coments";
+const PostDetails = ({ id, setSelected, changeFetchFlag }) => {
     const [postDetail, setPostDetail] = useState({})
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/posts/' + props.id + '/comments')
+        axios.get('http://localhost:8080/api/posts/' + id+ '/comments')
             .then(response => {
+                console.log(response.data)
                 setPostDetail(response.data)
             }).catch(err => console.log(err.message))
-    },[props.id]);
+    },[id]);
 
     const deleteButtonClicked = (id) => {
       axios.delete('http://localhost:8080/api/posts/' +id)
           .then(response=>{
-              props.changeFetchFlag();
+              console.log("Deleted successfully");
+              changeFetchFlag();
+              setSelected(0);
           }).catch(err=> console.log(err.message))
     }
 
     const space = <Fragment>&nbsp;&nbsp;</Fragment>;
     let postDetailDisplay = null;
-    if(props.id!==0){
-     postDetailDisplay = (
+    console.log(id)
+    if(id!==0){
+         postDetailDisplay = (
          <div className="PostDetail">
              <div>
-                 Post Details
+                 {postDetail.title}
              </div>
              <h1> {postDetail.title}</h1>
              <div >
                  {postDetail.content}
                  <br />
                  <div style={{ textAlign: "left" }}>
-                     {space} Comments <br />
-                     {postDetail.comment != null ? postDetail.comment.map(comments => {
-                         return <Comment comment={comments.comment} key={comments.id}/>
-                     }) : null}
+                      {space} Comments <br />
+                     {postDetail.comments != null ? (
+                         <Comments comments={postDetail.comments} />
+                     ) : null}
                  </div>
 
-
-
              </div>
-             <button onClick={ () => {deleteButtonClicked(props.id)}}> Delete</button>
+             <button onClick={ () => {deleteButtonClicked(id)}}> Delete</button>
          </div>
      )
     }

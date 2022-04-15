@@ -8,6 +8,9 @@ const Post = (props) => {
             <div className="Field">
                 {props.author}
             </div>
+             <div className="Field">
+                {props.content}
+            </div>
         </div>
     );
 

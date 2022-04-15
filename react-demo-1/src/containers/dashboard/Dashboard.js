@@ -28,17 +28,13 @@ const Dashboard = () => {
         }
     }
 
-    useEffect(() => {
-        return () => {
-            console.log("Something was unmounted");
-        };
-    }, [fetchFlag]);
 
     return (
         <div>
 
             <div>
                 <Posts
+                selectedState={selectedState}
                     setSelected={setSelected}
                     fetchFlag={fetchFlag}
                 />
@@ -46,8 +42,7 @@ const Dashboard = () => {
             <button onClick={reviewColorHandler}>Change color</button>
             {<div>
                 <PostDetails
-                    id={selectedState}
-                    changeFetchFlag={changeFetchFlag}/>
+                    id={selectedState} setSelected={setSelected} changeFetchFlag={changeFetchFlag}  />
             </div>}
             <div>
                 <NewPost changeFetchFlag={changeFetchFlag}/>
