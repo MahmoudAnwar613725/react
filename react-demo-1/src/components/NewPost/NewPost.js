@@ -1,9 +1,7 @@
 import axios from "axios";
 import {useRef} from "react";
-import { useNavigate } from 'react-router-dom';
 
 const NewPost = (props) => {
-    const navigate = useNavigate();
 
 const newPostForm = useRef();
 const addButtonClick = ()=>{
@@ -16,14 +14,13 @@ const addButtonClick = ()=>{
 
     axios.post('http://localhost:8080/api/posts',data)
         .then(response=>{
-            navigate('/Posts'); // If you didn't place / it will understand to append
-
+            props.changeFetchFlag();
         }).catch()
 }
 
     return (
         <div className="NewPost">
-            <form ref={newPostForm} onSubmit={addButtonClick}>
+            <form ref={newPostForm}>
                 <h1> Add Post</h1>
 
                 <label>Title</label>
@@ -36,7 +33,7 @@ const addButtonClick = ()=>{
                 <input type="text" label={'author'} name={'author'} />
             </form>
 
-            <button onClick={addButtonClick}> Add Post</button>
+            <button onClick={addButtonClick} > Add Post</button>
 
         </div>
     );
