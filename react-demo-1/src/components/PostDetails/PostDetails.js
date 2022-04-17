@@ -3,24 +3,22 @@ import {useEffect, useState, Fragment, useContext} from "react";
 import Comment from "../Comment/Comment";
 import './PostDetails.css';
 import Comments from "../../containers/Comments/Coments";
-import {PostContext} from "../../containers/dashboard/Dashboard";
+import {PostContext} from "../../pages/dashboard/Dashboard";
+import { useNavigate,useParams } from 'react-router-dom';
 
 
-const PostDetails = (props) => {
-    const { selectedState, setSelectedState } = useContext(PostContext);
-
+const PostDetails = () => {
+    const navigate = useNavigate();
+    const params = useParams();
 
     console.log("POSTDETAILS UPDATE");
 
-    const [postDetail, setPostDetail] = useState([{
-        id: 0,
-        name: ""
-    }]);
+    const [postDetail, setPostDetail] =  useState([]);;
 
 
     useEffect(
         () => {
-            axios.get('http://localhost:8080/api/posts/' + selectedState + '/comments')
+            axios.get('http://localhost:8080/api/posts/' + params.id + '/comments')
                 .then(response => {
                     setPostDetail(response.data)
                     console.log("postDetail:", postDetail)
@@ -28,13 +26,13 @@ const PostDetails = (props) => {
                 })
                 .catch(err => console.log(err.message))
         },
-        [selectedState])
+        [params.id])
 
 
     const deleteButtonClicked = (id) => {
-        axios.delete('http://localhost:8080/api/posts/' + selectedState)
+        axios.delete('http://localhost:8080/api/posts/' + id)
             .then(response => {
-                props.changeFetchFlag();
+                navigate("/");
             })
             .catch(err => {
                 console.error(err);
@@ -46,26 +44,24 @@ const PostDetails = (props) => {
     const space = <Fragment>&nbsp;&nbsp;</Fragment>;
 
     let productDetailsDisplay = null;
-    if (selectedState!== 0) {
+    if (params.id) {
         productDetailsDisplay = (
 
             <div className="PostDetail">
-                <div>
-                    Post Details
-                </div>
                 <h1>Post Detials</h1>
                 <div>
-                    {postDetail.id}
-                    <br/>
+                     <br/>
                     <div style={{textAlign: "left"}}>
                         {space} Reviews <br/>
-                        <Comments comment={postDetail} key={selectedState}/>
-                    </div>
+                        <Comments comment={postDetail} key={params.id}/>
+
+
+                     </div>
 
 
                 </div>
                 <button onClick={() => {
-                    deleteButtonClicked(selectedState)
+                    deleteButtonClicked(params.id)
                 }}> Delete
                 </button>
             </div>
